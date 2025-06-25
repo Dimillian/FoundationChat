@@ -35,8 +35,8 @@ struct ConversationDetailView: View {
             isInputFocused: $isInputFocused,
             onSend: {
               isGenerating = true
-              try? await streamNewMessage()
-              try? await updateConversationSummary()
+              await streamNewMessage()
+              await updateConversationSummary()
               isGenerating = false
             }
           )
@@ -71,7 +71,7 @@ struct ConversationDetailView: View {
 }
 
 extension ConversationDetailView {
-  private func streamNewMessage() async throws {
+  private func streamNewMessage() async {
     conversation.messages.append(
       Message(
         content: newMessage, role: .user,
@@ -87,20 +87,29 @@ extension ConversationDetailView {
         role: .assistant,
         timestamp: Date())
       conversation.messages.append(newMessage)
-      for try await part in stream {
-        newMessage.content = part.content ?? ""
-        scrollPosition.scrollTo(edge: .bottom)
+      
+      do {
+        for try await part in stream {
+          newMessage.content = part.content ?? ""
+          scrollPosition.scrollTo(edge: .bottom)
+        }
+        try modelContext.save()
+      } catch {
+        newMessage.content = "Error: \(error.localizedDescription)"
       }
-      try modelContext.save()
     }
   }
 
-  private func updateConversationSummary() async throws {
+  private func updateConversationSummary() async {
     if let stream = await chatEngine.summarize() {
-      for try await part in stream {
-        conversation.summary = part
+      do {
+        for try await part in stream {
+          conversation.summary = part
+        }
+        try modelContext.save()
+      } catch {
+        conversation.summary = "Error: \(error.localizedDescription)"
       }
-      try modelContext.save()
     }
   }
 }

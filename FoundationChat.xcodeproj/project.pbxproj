@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E91E57882E0C3BC90091F669 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = E91E57872E0C3BC90091F669 /* AppIcon.icon */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		E91E56BD2E0BD67D0091F669 /* FoundationChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoundationChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91E57872E0C3BC90091F669 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		E91E56B42E0BD67D0091F669 = {
 			isa = PBXGroup;
 			children = (
+				E91E57872E0C3BC90091F669 /* AppIcon.icon */,
 				E91E56BF2E0BD67D0091F669 /* FoundationChat */,
 				E91E56BE2E0BD67D0091F669 /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91E57882E0C3BC90091F669 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -72,21 +72,26 @@ class ChatEngine {
     if conversationHistorySize < 4000 {
       return session.streamResponse {
         """
-        Summarize the conversation in one or two sentences for the user. Don't talk about the conversation, just the topic.
-        Also don't mention "The user" or "The assistant" or "The conversation"
-        The goal of the summary if for the user or you to know what the conversation is about.
-        Here is the conversation history
+        Write a 1-2 sentence summary of what was discussed.
+        Start directly with the topic itself.
+        Example: "Swift programming techniques and best practices for error handling."
+        DO NOT start with phrases like "The conversation is about" or "The discussion covers".
+        
+        Conversation to summarize:
         \(conversationHistory)
         """
       }
     } else {
       return session.streamResponse {
         """
-        Summarize the conversation in one or two sentences for the user. Don't talk about the conversation, just the topic.
-        Also don't mention "The user" or "The assistant" or "The conversation"
-        Here is the previous conversation summary:
+        Update the summary to include new information, keeping it to 1-2 sentences.
+        Start directly with the topic itself.
+        DO NOT start with phrases like "The conversation is about" or "The discussion covers".
+        
+        Previous summary:
         \(conversation.summary ?? "No summary available")
-        And the last message is:
+        
+        Latest message:
         \(conversation.messages.last?.content ?? "No message available")
         """
       }

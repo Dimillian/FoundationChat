@@ -10,6 +10,7 @@ struct ConversationMessageView: View {
       }
       VStack(alignment: .leading) {
         Text(message.content)
+          .foregroundStyle(.white)
           .font(.subheadline)
           .contentTransition(.interpolate)
       }
