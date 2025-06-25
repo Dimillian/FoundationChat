@@ -10,63 +10,44 @@ struct ConversationDetailView: View {
   @State var conversation: Conversation
   @State var scrollPosition: ScrollPosition = .init()
   @State var isGenerating: Bool = false
-  @State private var refreshTrigger = false
   @FocusState var isInputFocused: Bool
 
   var body: some View {
-    Group {
-      if chatEngine.isAvailable {
-        ScrollView {
-          LazyVStack {
-            ForEach(conversation.sortedMessages) { message in
-              ConversationMessageView(message: message)
-                .id(message.id)
-            }
-          }
-          .scrollTargetLayout()
-          .padding(.bottom, 50)
-        }
-        .scrollDismissesKeyboard(.interactively)
-        .scrollPosition($scrollPosition, anchor: .bottom)
-        .toolbar {
-          ConversationDetailInputView(
-            newMessage: $newMessage,
-            isGenerating: $isGenerating,
-            isInputFocused: $isInputFocused,
-            onSend: {
-              isGenerating = true
-              await streamNewMessage()
-              await updateConversationSummary()
-              isGenerating = false
-            }
-          )
-        }
-        .onAppear {
-          chatEngine.prewarm()
-          isInputFocused = true
-          withAnimation {
-            scrollPosition.scrollTo(edge: .bottom)
-          }
-        }
-      } else {
-        ContentUnavailableView {
-          Label(chatEngine.availabilityState.title, systemImage: chatEngine.availabilityState.systemImage)
-        } description: {
-          chatEngine.availabilityState.description
-        } actions: {
-          if chatEngine.availabilityState == .modelDownloading || chatEngine.availabilityState == .intelligenceDisabled {
-            Button("Check Again") {
-              refreshTrigger.toggle()
-            }
-            .buttonStyle(.borderedProminent)
-          }
+    ScrollView {
+      LazyVStack {
+        ForEach(conversation.sortedMessages) { message in
+          ConversationMessageView(message: message)
+            .id(message.id)
         }
       }
+      .scrollTargetLayout()
+      .padding(.bottom, 50)
     }
-    .id(refreshTrigger)
+    .onAppear {
+      chatEngine.prewarm()
+      isInputFocused = true
+      withAnimation {
+        scrollPosition.scrollTo(edge: .bottom)
+      }
+    }
+    .scrollDismissesKeyboard(.interactively)
+    .scrollPosition($scrollPosition, anchor: .bottom)
     .navigationTitle("Messages")
     .navigationBarTitleDisplayMode(.inline)
     .toolbarRole(.editor)
+    .toolbar {
+      ConversationDetailInputView(
+        newMessage: $newMessage,
+        isGenerating: $isGenerating,
+        isInputFocused: $isInputFocused,
+        onSend: {
+          isGenerating = true
+          await streamNewMessage()
+          await updateConversationSummary()
+          isGenerating = false
+        }
+      )
+    }
   }
 }
 
@@ -87,7 +68,7 @@ extension ConversationDetailView {
         role: .assistant,
         timestamp: Date())
       conversation.messages.append(newMessage)
-      
+
       do {
         for try await part in stream {
           newMessage.content = part.content ?? ""

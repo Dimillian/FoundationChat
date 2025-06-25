@@ -8,12 +8,13 @@ class ChatEngine {
   private let session: LanguageModelSession
   private let conversation: Conversation
 
-  var availabilityState: ModelAvailabilityState {
-    ModelAvailabilityState(from: model.availability)
-  }
-
   var isAvailable: Bool {
-    model.isAvailable
+    switch model.availability {
+    case .available:
+      return true
+    default:
+      return false
+    }
   }
 
   var conversationHistory: String {
