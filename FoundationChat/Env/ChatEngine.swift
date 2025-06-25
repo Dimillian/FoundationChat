@@ -8,13 +8,12 @@ class ChatEngine {
   private let session: LanguageModelSession
   private let conversation: Conversation
 
+  var availabilityState: ModelAvailabilityState {
+    ModelAvailabilityState(from: model.availability)
+  }
+
   var isAvailable: Bool {
-    switch model.availability {
-    case .available:
-      return true
-    default:
-      return false
-    }
+    model.isAvailable
   }
 
   var conversationHistory: String {
@@ -44,6 +43,8 @@ class ChatEngine {
   }
 
   func respondTo() async -> LanguageModelSession.ResponseStream<MessageGenerable>? {
+    guard isAvailable else { return nil }
+
     if conversationHistorySize < 4000 {
       return session.streamResponse(generating: MessageGenerable.self) {
         """
@@ -66,6 +67,8 @@ class ChatEngine {
   }
 
   func summarize() async -> LanguageModelSession.ResponseStream<String>? {
+    guard isAvailable else { return nil }
+
     if conversationHistorySize < 4000 {
       return session.streamResponse {
         """
