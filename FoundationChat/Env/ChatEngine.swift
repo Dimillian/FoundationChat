@@ -52,6 +52,8 @@ class ChatEngine {
   }
 
   func respondTo() async -> LanguageModelSession.ResponseStream<MessageGenerable>? {
+    guard isAvailable else { return nil }
+
     if estimatedTokenCount < safeTokenLimit {
       return session.streamResponse(generating: MessageGenerable.self) {
         """
@@ -76,6 +78,8 @@ class ChatEngine {
   }
 
   func summarize() async -> LanguageModelSession.ResponseStream<String>? {
+    guard isAvailable else { return nil }
+
     if estimatedTokenCount < safeTokenLimit {
       return session.streamResponse {
         """
