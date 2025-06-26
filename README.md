@@ -17,9 +17,12 @@ A SwiftUI chat application built with Apple's Foundation Models framework, showc
 - ✅ **Persistent Storage**: SwiftData integration for conversation history
 - ✅ **Real-time Streaming**: Live streaming responses with structured output
 - ✅ **Smart Summaries**: Automatic conversation summarization
+- ✅ **Tool Integration**: Web page analysis with metadata extraction
+- ✅ **Rich Message Display**: Support for attachments with thumbnails and descriptions
 - ✅ **Availability Checking**: Proper Foundation Models availability handling
 - ✅ **Modern SwiftUI**: Clean interface with navigation stack and swipe actions
 - ✅ **On-device AI**: No internet required, complete privacy
+- ✅ **Error Handling**: Graceful error display in the UI
 
 ## Architecture
 
@@ -27,9 +30,10 @@ A SwiftUI chat application built with Apple's Foundation Models framework, showc
 
 - **`ChatEngine`**: Manages Foundation Models sessions and streaming responses
 - **`Conversation`** & **`Message`**: SwiftData models for persistent storage
-- **`MessageGenerable`**: @Generable struct for structured AI responses
+- **`MessageGenerable`**: @Generable struct for structured AI responses with web metadata
 - **`ConversationsListView`**: Main interface for managing conversations
 - **`ConversationDetailView`**: Chat interface with streaming message support
+- **`WebAnalyserTool`**: Tool for extracting structured data from web pages
 
 ### Data Flow
 
@@ -73,6 +77,18 @@ func respondTo() async -> LanguageModelSession.ResponseStream<MessageGenerable>?
 }
 ```
 
+### Tool Integration
+```swift
+struct WebAnalyserTool: Tool {
+    let name = "WebAnalyser"
+    let description = "Analyse a website and return structured content"
+    
+    func call(arguments: Arguments) async throws -> ToolOutput {
+        // Extracts title, thumbnail, and description
+    }
+}
+```
+
 ### SwiftData Persistence
 ```swift
 @Model
@@ -102,8 +118,10 @@ FoundationChat/
 │   ├── SwiftData/          # Data persistence models
 │   └── Generable/          # Foundation Models structures
 ├── Views/
-│   ├── ConversationsList/   # Main conversation list
-│   └── ConversationDetail/  # Chat interface
+│   ├── ConversationsList/  # Main conversation list
+│   └── ConversationDetail/ # Chat interface with message views
+├── Tools/
+│   └── WebAnalyserTool.swift # Web content extraction tool
 ├── Env/
 │   └── ChatEngine.swift    # Foundation Models integration
 └── FoundationChatApp.swift # App entry point

@@ -102,9 +102,10 @@ Apple's Foundation Models framework provides on-device large language models tha
    - `GenerationError.guardrailViolation`
    - `GenerationError.exceededContextWindowSize`
    - `GenerationError.unsupportedLanguageOrLocale`
-5. **Use streaming for responses > 1 sentence** for better UX
-6. **Prewarm sessions** when users show intent to interact
-7. **Keep instructions in sessions**, not user input (security)
+4. **Use streaming for responses > 1 sentence** for better UX
+5. **Prewarm sessions** when users show intent to interact
+6. **Keep instructions in sessions**, not user input (security)
+7. **Display errors in UI** - pass error messages to the user interface
 
 ## Code Patterns
 
@@ -169,9 +170,40 @@ struct MyTool: Tool {
 - **Context overflow**: Create new session or condense history
 - **Poor performance**: Check prewarming, schema inclusion settings
 
+## Recent Updates and Features
+
+### Tool Integration
+The project now includes the `WebAnalyserTool` that demonstrates Foundation Models tool calling:
+- Extracts structured metadata from web pages (title, thumbnail, description)
+- Uses SwiftSoup for HTML parsing
+- Returns structured data via `@Generable` types
+
+### Message Attachments
+Messages now support rich attachments:
+- `attachementTitle`: Display title for web content
+- `attachementThumbnail`: Preview image URL
+- `attachementDescription`: Content description
+
+### UI Improvements
+- Enhanced scrolling behavior with `.scrollPosition`
+- Automatic keyboard focus on conversation load
+- Error messages displayed directly in the chat UI
+- Preview support for SwiftUI views
+
 ## Development Best Practices
 
 - When editing code, always build the project to check for errors and fix them, then rebuild.
-- Always build the project with XcodeBuildMCP to check for error
+- Always build the project with XcodeBuildMCP to check for errors
+- Use previews to test UI components without running the full app
+- Handle all async operations with proper error catching and UI feedback
 
-Remember: This framework prioritizes privacy and runs entirely on-device. No internet connection is required, but the model must be downloaded and Apple Intelligence must be enabled.
+## Testing with Tools
+
+When implementing tools:
+1. Define the tool conforming to the `Tool` protocol
+2. Create `@Generable` structs for both Arguments and return types
+3. Add the tool to the session configuration
+4. Test with real URLs to verify extraction logic
+5. Ensure proper error handling for network failures
+
+Remember: This framework prioritizes privacy and runs entirely on-device. No internet connection is required for the model, but tools may access network resources when explicitly requested.

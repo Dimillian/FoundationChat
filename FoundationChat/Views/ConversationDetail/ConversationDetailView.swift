@@ -16,7 +16,7 @@ struct ConversationDetailView: View {
     ScrollView {
       LazyVStack {
         ForEach(conversation.sortedMessages) { message in
-          ConversationMessageView(message: message)
+          MessageView(message: message)
             .id(message.id)
         }
       }
@@ -24,7 +24,6 @@ struct ConversationDetailView: View {
       .padding(.bottom, 50)
     }
     .onAppear {
-      chatEngine.prewarm()
       isInputFocused = true
       withAnimation {
         scrollPosition.scrollTo(edge: .bottom)
@@ -72,6 +71,9 @@ extension ConversationDetailView {
       do {
         for try await part in stream {
           newMessage.content = part.content ?? ""
+          newMessage.attachementTitle = part.metadata?.title
+          newMessage.attachementThumbnail = part.metadata?.thumbnail
+          newMessage.attachementDescription = part.metadata?.description
           scrollPosition.scrollTo(edge: .bottom)
         }
         try modelContext.save()
@@ -93,4 +95,21 @@ extension ConversationDetailView {
       }
     }
   }
+}
+
+#Preview {
+  @Previewable var conversation: Conversation = .init(
+    messages: [
+      .init(
+        content: "Hello world",
+        role: .user,
+        timestamp: Date()),
+      .init(
+        content: "How may I asist you today?",
+        role: .assistant,
+        timestamp: Date())
+    ],
+    summary: "A preview conversation")
+  ConversationDetailView(conversation: conversation)
+  .environment(ChatEngine(conversation: conversation))
 }

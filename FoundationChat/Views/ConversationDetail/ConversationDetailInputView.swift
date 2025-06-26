@@ -9,7 +9,7 @@ struct ConversationDetailInputView: ToolbarContent {
 
   var body: some ToolbarContent {
     ToolbarItemGroup(placement: .bottomBar) {
-      TextField("Message", text: $newMessage)
+      TextField("New message to the assistant", text: $newMessage)
         .textFieldStyle(.plain)
         .padding()
         .contentShape(Rectangle())
@@ -23,6 +23,22 @@ struct ConversationDetailInputView: ToolbarContent {
       }
       .disabled(isGenerating)
       .tint(isGenerating ? .gray : .blue)
+    }
+  }
+}
+
+#Preview {
+  @FocusState var isInputFocused: Bool
+  
+  NavigationStack {
+    List {
+      Text("Hello")
+    }
+    .toolbar {
+      ConversationDetailInputView(newMessage: .constant(""),
+                                  isGenerating: .constant(false),
+                                  isInputFocused: $isInputFocused,
+                                  onSend: { })
     }
   }
 }

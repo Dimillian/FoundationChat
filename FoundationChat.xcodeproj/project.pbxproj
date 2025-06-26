@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E91E57882E0C3BC90091F669 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = E91E57872E0C3BC90091F669 /* AppIcon.icon */; };
+		E91E57CD2E0D1CB50091F669 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = E91E57CC2E0D1CB50091F669 /* SwiftSoup */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91E57CD2E0D1CB50091F669 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			);
 			name = FoundationChat;
 			packageProductDependencies = (
+				E91E57CC2E0D1CB50091F669 /* SwiftSoup */,
 			);
 			productName = FoundationChat;
 			productReference = E91E56BD2E0BD67D0091F669 /* FoundationChat.app */;
@@ -100,6 +103,9 @@
 			);
 			mainGroup = E91E56B42E0BD67D0091F669;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E91E57CB2E0D1CB50091F669 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E91E56BE2E0BD67D0091F669 /* Products */;
 			projectDirPath = "";
@@ -356,6 +362,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E91E57CB2E0D1CB50091F669 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E91E57CC2E0D1CB50091F669 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E91E57CB2E0D1CB50091F669 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E91E56B52E0BD67D0091F669 /* Project object */;
 }
