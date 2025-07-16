@@ -1,3 +1,34 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=it">Itapano</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=Dimillian&project=FoundationChat&lang=id">Bahasa Indonesia</a>
+      </div>
+    </div>
+  </details>
+</div>
+
 # FoundationChat
 
 A SwiftUI chat application built with Apple's Foundation Models framework, showcasing on-device AI capabilities with persistent conversation storage.
