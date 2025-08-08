@@ -70,10 +70,10 @@ extension ConversationDetailView {
 
       do {
         for try await part in stream {
-          newMessage.content = part.content ?? ""
-          newMessage.attachementTitle = part.metadata?.title
-          newMessage.attachementThumbnail = part.metadata?.thumbnail
-          newMessage.attachementDescription = part.metadata?.description
+            newMessage.content = part.content.content ?? ""
+            newMessage.attachementTitle = part.content.metadata?.title
+          newMessage.attachementThumbnail = part.content.metadata?.thumbnail
+          newMessage.attachementDescription = part.content.metadata?.description
           scrollPosition.scrollTo(edge: .bottom)
         }
         try modelContext.save()
@@ -87,7 +87,7 @@ extension ConversationDetailView {
     if let stream = await chatEngine.summarize() {
       do {
         for try await part in stream {
-          conversation.summary = part
+          conversation.summary = part.content
         }
         try modelContext.save()
       } catch {
